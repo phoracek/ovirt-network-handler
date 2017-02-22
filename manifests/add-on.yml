@@ -1,0 +1,57 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: extensions/v1beta1
+  kind: ThirdPartyResource
+  metadata:
+    name: ovirt-host-network.ovirt.org
+  description: "oVirt NetworkAttachments and HostNics."
+  versions:
+  - name: v1alpha1
+- apiVersion: extensions/v1beta1
+  kind: DaemonSet
+  metadata:
+    labels:
+      name: ovirt-host-network-handler
+    name: ovirt-host-network-handler
+  spec:
+    template:
+      metadata:
+        labels:
+          name: ovirt-host-network-handler
+      spec:
+        serviceAccountName: privilegeduser
+        hostNetwork: true
+        hostPID: true
+        hostIPC: true
+        securityContext:
+          privileged: true
+        containers:
+          - name: ovirt-host-network-handler
+            image: phoracek/ovirt-host-network-handler:latest
+            imagePullPolicy: IfNotPresent
+            securityContext:
+              privileged: true
+            volumeMounts:
+              - mountPath: /var/lib/vdsm
+                name: var-lib-vdsm
+              - mountPath: /var/run/dbus
+                name: var-run-dbus
+              - mountPath: /var/run/libvirt
+                name: var-run-libvirt
+              - mountPath: /etc/sysconfig/network-scripts
+                name: etc-sysconfig-networkscripts
+        volumes:
+          - name: var-lib-vdsm
+            hostPath:
+              path: /var/lib/vdsm-k8s
+          - name: var-run-dbus
+            hostPath:
+              path: /var/run/dbus
+          - name: var-run-libvirt
+            hostPath:
+              path: /var/run/libvirt
+          - name: etc-sysconfig-networkscripts
+            hostPath:
+              path: /etc/sysconfig/network-scripts

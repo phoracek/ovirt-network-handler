@@ -96,3 +96,6 @@ ENV/
 # pbr
 AUTHORS
 ChangeLog
+
+# Vagrant stuff
+.vagrant/
