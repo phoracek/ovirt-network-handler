@@ -45,21 +45,19 @@ def setup(networks, bondings, ping_fn):
     _canonicalize_bondings(bondings)
     desired = BaseConfig(networks, bondings)
     diff = desired.diffFrom(RunningConfig())
-    logging.error('Configuration difference to be applied: %s %s',
-                  diff.networks, diff.bonds)
+    logging.info('Configuration difference to be applied: %s %s',
+                 diff.networks, diff.bonds)
 
     if diff:
-        # ping_thread = threading.Thread(target=_check_ping,
-        #                                args=(ping_fn, _CONNECTIVITY_TIMEOUT))
-        # ping_thread.start()
+        ping_thread = threading.Thread(target=_check_ping,
+                                       args=(ping_fn, _CONNECTIVITY_TIMEOUT))
+        ping_thread.start()
 
-        netapi.setupNetworks(
-            diff.networks, diff.bonds,
-            {'connectivityCheck': False})
-        # {'connectivityCheck': True,
-        #  'connectivityTimeout': _CONNECTIVITY_TIMEOUT})
+        netapi.setupNetworks(diff.networks, diff.bonds,
+                             {'connectivityCheck': True,
+                              'connectivityTimeout': _CONNECTIVITY_TIMEOUT})
 
-    logging.error('Setup is now complete.')
+    logging.info('Setup is now complete.')
 
 
 def _check_ping(ping_fn, timeout):
@@ -75,9 +73,8 @@ def _check_ping(ping_fn, timeout):
         logging.debug('Running ping function.')
         if ping_fn():
             logging.debug('Successfully pinged, logging.')
-            with open(_CLIENT_LOG, 'a') as client_log_file:
+            with open(_CLIENT_LOG, 'w') as client_log_file:
                 client_log_file.write('I have seen my master.\n')
-            return
         time.sleep(1)
 
 

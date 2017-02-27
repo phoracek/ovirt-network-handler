@@ -2,22 +2,6 @@
 apiVersion: extensions/v1beta1
 kind: ThirdPartyResource
 metadata:
-  name: vdsm-network.ovirt.org
-description: "Logical network specification"
-versions:
-- name: v1alpha1
----
-apiVersion: extensions/v1beta1
-kind: ThirdPartyResource
-metadata:
-  name: vdsm-bonding.ovirt.org
-description: "Logical bonding specification"
-versions:
-- name: v1alpha1
----
-apiVersion: extensions/v1beta1
-kind: ThirdPartyResource
-metadata:
   name: vdsm-network-attachment.ovirt.org
 description: "Host attachment of logical networks and bondings"
 versions:
@@ -47,11 +31,6 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
-          env:
-            - name: NODE_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: spec.nodeName
           volumeMounts:
             - mountPath: /var/lib/vdsm
               name: var-lib-vdsm
@@ -61,6 +40,8 @@ spec:
               name: var-run-libvirt
             - mountPath: /var/run/openvswitch
               name: var-run-openvswitch
+            - mountPath: /etc/sysconfig/network-scripts
+              name: etc-sysconfig-networkscripts
       volumes:
         - name: var-lib-vdsm
           hostPath:
@@ -74,3 +55,6 @@ spec:
         - name: var-run-openvswitch
           hostPath:
             path: /var/run/openvswitch
+        - name: etc-sysconfig-networkscripts
+          hostPath:
+            path: /etc/sysconfig/network-scripts

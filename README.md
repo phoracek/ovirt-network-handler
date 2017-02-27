@@ -13,8 +13,7 @@ Make sure `openvswitch` and `libvirtd` is installed on all nodes. Also you
 need to `modprobe bonding` on node in order to be able to use that kernel
 module in containers.
 
-Install `VdsmNetwork`, `VdsmBonding` and `VdsmNetworkAttachment` TPRs and
-`DaemonSet` with `vdsm-net-handler` running.
+`VdsmNetworkAttachment` TPR and `DaemonSet` with `vdsm-net-handler` running.
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/phoracek/vdsm-net-handler/master/manifests/add-on.yml
@@ -26,56 +25,19 @@ attachments.
 ```yaml
 ---
 apiVersion: 'ovirt.org/v1alpha1'
-kind: VdsmNetwork
-metadata:
-  name: net1
-spec:
-  bridged: true
-  bonding: bond1
-  bootproto: dhcp
-  defaultRoute: true
----
-apiVersion: 'ovirt.org/v1alpha1'
-kind: VdsmNetwork
-metadata:
-  name: net2
-spec:
-  bridged: true
-  nic: $red
-  bootproto: dhcp
----
-apiVersion: 'ovirt.org/v1alpha1'
-kind: VdsmBonding
-metadata:
-  name: bond1
-spec:
-  nics:
-    - $blue
-    - $green
----
-apiVersion: 'ovirt.org/v1alpha1'
 kind: VdsmNetworkAttachment
 metadata:
   name: node1
 spec:
   networks:
-    - net1
+    net1:
+      bridged: true
+      bonding: bond1
+      bootproto: dhcp
+      defaultRoute: true
   bondings:
-    - bond1
-  labels:
-    blue: eth0
-    green: eth1
----
-apiVersion: 'ovirt.org/v1alpha1'
-kind: VdsmNetworkAttachment
-metadata:
-  name: node2
-spec:
-  networks:
-    - net2
-  labels:
-    red: eth0
+    bond1:
+      nics:
+        - eth0
+        - eth1
 ```
-
-Note that removal of `VdsmNetworkAttachment` must be done in two steps, first
-remove all networks and bondings from the attachment and only then delete it.

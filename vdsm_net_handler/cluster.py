@@ -13,16 +13,10 @@
 # limitations under the License.
 
 import json
-import logging
 
 import requests
 
 _NAMESPACE = 'default'
-
-_NETWORKS = ('apis/ovirt.org/v1alpha1/namespaces/{}/vdsmnetworks'
-             .format(_NAMESPACE))
-_BONDINGS = ('apis/ovirt.org/v1alpha1/namespaces/{}/vdsmbondings'
-             .format(_NAMESPACE))
 _ATTACHMENTS = ('apis/ovirt.org/v1alpha1/namespaces/{}/vdsmnetworkattachments'
                 .format(_NAMESPACE))
 
@@ -44,19 +38,10 @@ class Cluster(object):
     def get_root(self):
         return self._get('')
 
-    def get_networks(self):
-        logging.error('request get nets')
-        return self._get(_NETWORKS)['items']
-
-    def get_bondings(self):
-        logging.error('request get bonds')
-        return self._get(_BONDINGS)['items']
-
-    def get_attachment(self, node_name):
-        logging.error('request get attachment')
+    def get_attachment(self, name):
         return next((attachment
                      for attachment in self._get(_ATTACHMENTS)['items']
-                     if attachment['metadata']['name'] == node_name),
+                     if attachment['metadata']['name'] == name),
                     None)
 
     def _put(self, resource, name, data):
@@ -65,6 +50,7 @@ class Cluster(object):
             headers={'Authorization': 'Bearer {}'.format(self._token)},
             verify=False)
         response.raise_for_status()
+        return response.json()['metadata']['resourceVersion']
 
     def _put_state(self, resource, doc, status, reason='', message='',
                    save_spec_to_state=False):
@@ -77,31 +63,36 @@ class Cluster(object):
         }
         _doc['state']['status'] = {
             status: {'reason': reason, 'message': message}}
-        self._put(resource, name, _doc)
-
-    def put_network_state(self, doc, status, reason='', message='',
-                          save_spec_to_state=False):
-        self._put_state(
-            _NETWORKS, doc, status, reason, message, save_spec_to_state)
-
-    def put_bonding_state(self, doc, status, reason='', message='',
-                          save_spec_to_state=False):
-        self._put_state(
-            _BONDINGS, doc, status, reason, message, save_spec_to_state)
+        return self._put(resource, name, _doc)
 
     def put_attachment_state(self, doc, status, reason='', message='',
                              save_spec_to_state=False):
-        self._put_state(
-            _ATTACHMENTS, doc, status, reason, message, save_spec_to_state)
+        return self._put_state(_ATTACHMENTS, doc, status, reason, message,
+                               save_spec_to_state)
 
-    # NOTE: not used yet
-    def watch(self, resource):
-        response = requests.get(
-            '{}/{}?watch=true'.format(self._host, resource), stream=True,
+    def _post(self, resource, data):
+        response = requests.post(
+            '{}/{}'.format(self._host, resource), json=data,
             headers={'Authorization': 'Bearer {}'.format(self._token)},
             verify=False)
         response.raise_for_status()
-        for line in response.iter_lines():
+        return response.json()['metadata']['resourceVersion']
+
+    def post_attachment(self, doc):
+        return self._post(_ATTACHMENTS, doc)
+
+    def _watch(self, resource):
+        response = requests.get(
+            '{}/{}'.format(self._host, resource), stream=True,
+            params={'watch': 'true'},
+            headers={'Authorization': 'Bearer {}'.format(self._token)},
+            verify=False)
+        response.raise_for_status()
+        for line in response.iter_lines(chunk_size=1):
             if line:
-                decoded_line = line.decode('utf-8')
-                yield json.loads(decoded_line)
+                yield json.loads(line)
+
+    def watch_attachment(self, name):
+        for attachment in self._watch(_ATTACHMENTS):
+            if attachment['object']['metadata']['name'] == name:
+                yield attachment

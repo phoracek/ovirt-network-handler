@@ -45,7 +45,7 @@ SCRIPT
 
 $RESET_K8S_JOIN = <<SCRIPT
 echo "Removing previous 'kubeadm join ...' command."
-rm -f /vagrant/join_master
+rm -f /vagrant/.vagrant/join_master
 SCRIPT
 
 $SETUP_K8S_MASTER = <<SCRIPT
