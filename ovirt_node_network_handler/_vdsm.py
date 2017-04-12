@@ -23,6 +23,8 @@ from vdsm.network import api as netapi
 from vdsm.network import canonicalize
 from vdsm.network.netconfpersistence import BaseConfig, RunningConfig
 from vdsm.network.nm import networkmanager
+from vdsm.host import stats
+from vdsm.virt import sampling
 
 _CLIENT_LOG = '/var/run/vdsm/client.log'
 _CONNECTIVITY_TIMEOUT = 60
@@ -101,10 +103,18 @@ def _canonicalize_bondings(bondings):
             attrs['options'] += ' mode=0'
 
 
-def get_info():
+def get_info(initial_stats_sample):
     capabilities = netapi.network_caps()
-    statistics = {}
+    new_stats_sample = get_stats_sample()
+    statistics = stats._get_interfaces_stats(
+        initial_stats_sample,
+        new_stats_sample
+    )['network']
     return {
         'capabilities': capabilities,
         'statistics': statistics
     }
+
+
+def get_stats_sample():
+    return sampling.HostSample(pid=1)
