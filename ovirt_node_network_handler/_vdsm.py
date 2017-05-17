@@ -103,12 +103,12 @@ def _canonicalize_bondings(bondings):
             attrs['options'] += ' mode=0'
 
 
-def get_info(initial_stats_sample):
+def get_info(initial_ifaces_sample):
     capabilities = netapi.network_caps()
-    new_stats_sample = get_stats_sample()
+    new_ifaces_sample = InterfacesSample()
     statistics = stats._get_interfaces_stats(
-        initial_stats_sample,
-        new_stats_sample
+        initial_ifaces_sample,
+        new_ifaces_sample
     )['network']
     return {
         'capabilities': capabilities,
@@ -116,5 +116,7 @@ def get_info(initial_stats_sample):
     }
 
 
-def get_stats_sample():
-    return sampling.HostSample(pid=1)
+class InterfacesSample(object):
+    def __init__(self):
+        self.timestamp = time.time()
+        self.interfaces = sampling._get_interfaces_and_samples()

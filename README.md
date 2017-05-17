@@ -37,17 +37,6 @@ export PATH=$PATH:~/.minishift/cache/oc/$OCTAG
 
 ### Install network handler
 
-Log into VM, install and start libvirt. **TODO** remove libvirt dependency in
-statistics gathering.
-
-```shell
-minishift ssh
-sudo yum install -y libvirt
-sudo systemctl start libvirtd virtlogd
-sudo systemctl enable libvirtd virtlogd
-exit
-```
-
 Loggin to OpenShift as admin.
 
 ```shell

@@ -37,7 +37,7 @@ class Handler(object):
         self._cluster = _cluster.NodeNetworkCluster(
             self._node_name, _PROJECT_NAME)
         _vdsm.init()
-        self._initial_stats_sample = _vdsm.get_stats_sample()
+        self._initial_ifaces_sample = _vdsm.InterfacesSample()
         self._configured = -1
 
     def run(self):
@@ -122,7 +122,7 @@ class Handler(object):
         network.setdefault('spec', {})
 
         try:
-            info = _vdsm.get_info(self._initial_stats_sample)
+            info = _vdsm.get_info(self._initial_ifaces_sample)
         except:
             logging.error('Info update failed.', exc_info=True)
             info = {'infoStatus': {'Failed': {
