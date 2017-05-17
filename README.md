@@ -1,5 +1,7 @@
 # oVirt Node Network Handler
 
+[![Build Status](https://travis-ci.org/phoracek/ovirt-node-network-handler.svg?branch=master)](https://travis-ci.org/phoracek/ovirt-node-network-handler)
+
 oVirt host networking controlled by OpenShift API.
 
 
