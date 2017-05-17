@@ -43,6 +43,8 @@ items:
                 name: var-run-libvirt
               - mountPath: /etc/sysconfig/network-scripts
                 name: etc-sysconfig-networkscripts
+              - mountPath: /lib/modules
+                name: lib-modules
         volumes:
           - name: var-lib-vdsm
             hostPath:
@@ -56,3 +58,6 @@ items:
           - name: etc-sysconfig-networkscripts
             hostPath:
               path: /etc/sysconfig/network-scripts
+          - name: lib-modules
+            hostPath:
+              path: /lib/modules

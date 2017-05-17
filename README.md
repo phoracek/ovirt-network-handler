@@ -37,13 +37,11 @@ export PATH=$PATH:~/.minishift/cache/oc/$OCTAG
 
 ### Install network handler
 
-Log into VM, load kernel modules, install and start libvirt. **TODO** remove
-libvirt dependency in statistics gathering.
+Log into VM, install and start libvirt. **TODO** remove libvirt dependency in
+statistics gathering.
 
 ```shell
 minishift ssh
-modprobe 8021q
-modprobe bonding
 sudo yum install -y libvirt
 sudo systemctl start libvirtd virtlogd
 sudo systemctl enable libvirtd virtlogd
