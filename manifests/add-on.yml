@@ -39,8 +39,6 @@ items:
                 name: var-lib-vdsm
               - mountPath: /var/run/dbus
                 name: var-run-dbus
-              - mountPath: /var/run/libvirt
-                name: var-run-libvirt
               - mountPath: /etc/sysconfig/network-scripts
                 name: etc-sysconfig-networkscripts
               - mountPath: /lib/modules
@@ -52,9 +50,6 @@ items:
           - name: var-run-dbus
             hostPath:
               path: /var/run/dbus
-          - name: var-run-libvirt
-            hostPath:
-              path: /var/run/libvirt
           - name: etc-sysconfig-networkscripts
             hostPath:
               path: /etc/sysconfig/network-scripts
