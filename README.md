@@ -82,12 +82,12 @@ items:
 - apiVersion: ovirt.org/v1alpha1
   kind: OvirtNodeNetwork
   metadata:
-    creationTimestamp: 2017-05-16T14:58:08Z
+    creationTimestamp: 2017-06-16T11:07:30Z
     name: minishift
     namespace: ovirt
-    resourceVersion: "2157"
+    resourceVersion: "1151"
     selfLink: /apis/ovirt.org/v1alpha1/namespaces/ovirt/ovirtnodenetworks/minishift
-    uid: 12d72c6b-3a48-11e7-8163-5254007f9313
+    uid: fd9a490b-5283-11e7-98d1-525400e42a82
   spec: {}
   state:
     capabilities:
@@ -108,16 +108,16 @@ items:
           netmask: 255.255.0.0
           opts:
             ageing_time: "30000"
-            bridge_id: 8000.0242b4241d7c
+            bridge_id: 8000.0242a8153d32
             default_pvid: "1"
             forward_delay: "1500"
-            gc_timer: "20643"
+            gc_timer: "9393"
             group_addr: 1:80:c2:0:0:0
             group_fwd_mask: "0x0"
             hash_elasticity: "4"
             hash_max: "512"
             hello_time: "200"
-            hello_timer: "99"
+            hello_timer: "90"
             max_age: "2000"
             multicast_last_member_count: "2"
             multicast_last_member_interval: "100"
@@ -134,7 +134,7 @@ items:
             nf_call_ip6tables: "0"
             nf_call_iptables: "0"
             priority: "32768"
-            root_id: 8000.0242b4241d7c
+            root_id: 8000.0242a8153d32
             root_path_cost: "0"
             root_port: "0"
             stp_state: "0"
@@ -144,7 +144,7 @@ items:
             topology_change_timer: "0"
             vlan_filtering: "0"
           ports:
-          - veth41ed4e0
+          - veth5250a08
           stp: "off"
       nameservers:
       - 192.168.122.1
@@ -152,13 +152,13 @@ items:
       networks: {}
       nics:
         eth0:
-          addr: 192.168.122.151
+          addr: 192.168.122.81
           dhcpv4: true
           dhcpv6: false
           gateway: 192.168.122.1
-          hwaddr: 52:54:00:7f:93:13
+          hwaddr: 52:54:00:e4:2a:82
           ipv4addrs:
-          - 192.168.122.151/24
+          - 192.168.122.81/24
           ipv4defaultroute: true
           ipv6addrs: []
           ipv6autoconf: true
@@ -167,13 +167,13 @@ items:
           netmask: 255.255.255.0
           speed: 100
         eth1:
-          addr: 192.168.42.105
+          addr: 192.168.42.212
           dhcpv4: true
           dhcpv6: false
           gateway: ""
-          hwaddr: 52:54:00:f7:40:1e
+          hwaddr: 52:54:00:2d:2b:d7
           ipv4addrs:
-          - 192.168.42.105/24
+          - 192.168.42.212/24
           ipv4defaultroute: false
           ipv6addrs: []
           ipv6autoconf: true
@@ -187,6 +187,9 @@ items:
       Success:
         message: ""
         reason: ""
+    kernel_config:
+      bondings: {}
+      networks: {}
     setupStatus:
       Success:
         message: ""
@@ -194,57 +197,57 @@ items:
     statistics:
       docker0:
         name: docker0
-        rx: "831202"
+        rx: "541601"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4949468e+09
+        sampleTime: 1.4976113e+09
         speed: "1000"
         state: up
-        tx: "1292868"
+        tx: "984412"
         txDropped: "0"
         txErrors: "0"
       eth0:
         name: eth0
-        rx: "695557910"
+        rx: "710267176"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4949468e+09
+        sampleTime: 1.4976113e+09
         speed: "100"
         state: up
-        tx: "3414634"
+        tx: "2754155"
         txDropped: "0"
         txErrors: "0"
       eth1:
         name: eth1
-        rx: "958014"
+        rx: "418556"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4949468e+09
+        sampleTime: 1.4976113e+09
         speed: "100"
         state: up
-        tx: "2682596"
+        tx: "1195523"
         txDropped: "0"
         txErrors: "0"
       lo:
         name: lo
-        rx: "81471386"
+        rx: "44748126"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4949468e+09
+        sampleTime: 1.4976113e+09
         speed: "1000"
         state: up
-        tx: "81471386"
+        tx: "44748126"
         txDropped: "0"
         txErrors: "0"
-      veth41ed4e0:
-        name: veth41ed4e0
-        rx: "409668"
+      veth5250a08:
+        name: veth5250a08
+        rx: "63522"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4949468e+09
+        sampleTime: 1.4976113e+09
         speed: "1000"
         state: up
-        tx: "380794"
+        tx: "59386"
         txDropped: "0"
         txErrors: "0"
 kind: List
@@ -263,6 +266,7 @@ vim node_network.yml
 ```
 
 ```yaml
+apiVersion: 'ovirt.org/v1alpha1'
 kind: OvirtNodeNetwork
 metadata:
   name: minishift
@@ -292,18 +296,18 @@ items:
 - apiVersion: ovirt.org/v1alpha1
   kind: OvirtNodeNetwork
   metadata:
-    creationTimestamp: 2017-05-17T09:05:36Z
+    creationTimestamp: 2017-06-16T11:07:30Z
     name: minishift
     namespace: ovirt
-    resourceVersion: "1180"
+    resourceVersion: "1214"
     selfLink: /apis/ovirt.org/v1alpha1/namespaces/ovirt/ovirtnodenetworks/minishift
-    uid: fd7db999-3adf-11e7-8b43-5254008b6773
+    uid: fd9a490b-5283-11e7-98d1-525400e42a82
   spec:
     bondings:
       bond1:
         nics:
         - eth1
-        options: mode=1 miimon=100
+        options: mode=4 miimon=100
     networks:
       net1:
         bonding: bond1
@@ -314,12 +318,14 @@ items:
     capabilities:
       bondings:
         bond1:
-          active_slave: eth1
+          active_slave: ""
+          ad_aggregator_id: "2"
+          ad_partner_mac: "00:00:00:00:00:00"
           addr: ""
           dhcpv4: false
           dhcpv6: false
           gateway: ""
-          hwaddr: 52:54:00:0c:e6:b1
+          hwaddr: 52:54:00:2d:2b:d7
           ipv4addrs: []
           ipv4defaultroute: false
           ipv6addrs: []
@@ -329,7 +335,7 @@ items:
           netmask: ""
           opts:
             miimon: "100"
-            mode: "1"
+            mode: "4"
           slaves:
           - eth1
           switch: legacy
@@ -349,16 +355,16 @@ items:
           netmask: 255.255.0.0
           opts:
             ageing_time: "30000"
-            bridge_id: 8000.024242411f6c
+            bridge_id: 8000.0242a8153d32
             default_pvid: "1"
             forward_delay: "1500"
-            gc_timer: "16923"
+            gc_timer: "18437"
             group_addr: 1:80:c2:0:0:0
             group_fwd_mask: "0x0"
             hash_elasticity: "4"
             hash_max: "512"
             hello_time: "200"
-            hello_timer: "20"
+            hello_timer: "33"
             max_age: "2000"
             multicast_last_member_count: "2"
             multicast_last_member_interval: "100"
@@ -375,7 +381,7 @@ items:
             nf_call_ip6tables: "0"
             nf_call_iptables: "0"
             priority: "32768"
-            root_id: 8000.024242411f6c
+            root_id: 8000.0242a8153d32
             root_path_cost: "0"
             root_port: "0"
             stp_state: "0"
@@ -385,15 +391,15 @@ items:
             topology_change_timer: "0"
             vlan_filtering: "0"
           ports:
-          - veth96a2144
+          - veth5250a08
           stp: "off"
         net1:
-          addr: 192.168.42.75
+          addr: 192.168.42.212
           dhcpv4: true
           dhcpv6: false
           gateway: ""
           ipv4addrs:
-          - 192.168.42.75/24
+          - 192.168.42.212/24
           ipv4defaultroute: false
           ipv6addrs: []
           ipv6autoconf: false
@@ -402,16 +408,16 @@ items:
           netmask: 255.255.255.0
           opts:
             ageing_time: "30000"
-            bridge_id: 8000.5254000ce6b1
+            bridge_id: 8000.5254002d2bd7
             default_pvid: "1"
             forward_delay: "0"
-            gc_timer: "27162"
+            gc_timer: "29189"
             group_addr: 1:80:c2:0:0:0
             group_fwd_mask: "0x0"
             hash_elasticity: "4"
             hash_max: "512"
             hello_time: "200"
-            hello_timer: "119"
+            hello_timer: "133"
             max_age: "2000"
             multicast_last_member_count: "2"
             multicast_last_member_interval: "100"
@@ -428,7 +434,7 @@ items:
             nf_call_ip6tables: "0"
             nf_call_iptables: "0"
             priority: "32768"
-            root_id: 8000.5254000ce6b1
+            root_id: 8000.5254002d2bd7
             root_path_cost: "0"
             root_port: "0"
             stp_state: "0"
@@ -440,72 +446,19 @@ items:
           ports:
           - bond1
           stp: "off"
-        virbr0:
-          addr: 192.168.124.1
-          dhcpv4: false
-          dhcpv6: false
-          gateway: ""
-          ipv4addrs:
-          - 192.168.124.1/24
-          ipv4defaultroute: false
-          ipv6addrs: []
-          ipv6autoconf: false
-          ipv6gateway: '::'
-          mtu: "1500"
-          netmask: 255.255.255.0
-          opts:
-            ageing_time: "30000"
-            bridge_id: 8000.5254002113ac
-            default_pvid: "1"
-            forward_delay: "200"
-            gc_timer: "8321"
-            group_addr: 1:80:c2:0:0:0
-            group_fwd_mask: "0x0"
-            hash_elasticity: "4"
-            hash_max: "512"
-            hello_time: "200"
-            hello_timer: "19"
-            max_age: "2000"
-            multicast_last_member_count: "2"
-            multicast_last_member_interval: "100"
-            multicast_membership_interval: "26000"
-            multicast_querier: "0"
-            multicast_querier_interval: "25500"
-            multicast_query_interval: "12500"
-            multicast_query_response_interval: "1000"
-            multicast_router: "1"
-            multicast_snooping: "1"
-            multicast_startup_query_count: "2"
-            multicast_startup_query_interval: "3125"
-            nf_call_arptables: "0"
-            nf_call_ip6tables: "0"
-            nf_call_iptables: "0"
-            priority: "32768"
-            root_id: 8000.5254002113ac
-            root_path_cost: "0"
-            root_port: "0"
-            stp_state: "1"
-            tcn_timer: "0"
-            topology_change: "0"
-            topology_change_detected: "0"
-            topology_change_timer: "0"
-            vlan_filtering: "0"
-          ports:
-          - virbr0-nic
-          stp: "on"
       nameservers:
       - 192.168.122.1
       - 192.168.42.1
       networks:
         net1:
-          addr: 192.168.42.75
+          addr: 192.168.42.212
           bridged: true
           dhcpv4: true
           dhcpv6: false
           gateway: ""
           iface: net1
           ipv4addrs:
-          - 192.168.42.75/24
+          - 192.168.42.212/24
           ipv4defaultroute: false
           ipv6addrs: []
           ipv6autoconf: false
@@ -518,13 +471,13 @@ items:
           switch: legacy
       nics:
         eth0:
-          addr: 192.168.122.125
+          addr: 192.168.122.81
           dhcpv4: true
           dhcpv6: false
           gateway: 192.168.122.1
-          hwaddr: 52:54:00:8b:67:73
+          hwaddr: 52:54:00:e4:2a:82
           ipv4addrs:
-          - 192.168.122.125/24
+          - 192.168.122.81/24
           ipv4defaultroute: true
           ipv6addrs: []
           ipv6autoconf: true
@@ -533,11 +486,12 @@ items:
           netmask: 255.255.255.0
           speed: 100
         eth1:
+          ad_aggregator_id: "2"
           addr: ""
           dhcpv4: false
           dhcpv6: false
           gateway: ""
-          hwaddr: 52:54:00:0c:e6:b1
+          hwaddr: 52:54:00:2d:2b:d7
           ipv4addrs: []
           ipv4defaultroute: false
           ipv6addrs: []
@@ -545,7 +499,7 @@ items:
           ipv6gateway: '::'
           mtu: "1500"
           netmask: ""
-          permhwaddr: 52:54:00:0c:e6:b1
+          permhwaddr: 52:54:00:2d:2b:d7
           speed: 100
       supportsIPv6: true
       vlans: {}
@@ -553,6 +507,25 @@ items:
       Success:
         message: ""
         reason: ""
+    kernel_config:
+      bondings:
+        bond1:
+          nics:
+          - eth1
+          options: miimon=100 mode=4
+          switch: legacy
+      networks:
+        net1:
+          bonding: bond1
+          bootproto: dhcp
+          bridged: true
+          defaultRoute: false
+          dhcpv6: false
+          ipv6autoconf: false
+          mtu: 1500
+          nameservers: []
+          stp: false
+          switch: legacy
     setupStatus:
       Success:
         message: ""
@@ -560,79 +533,57 @@ items:
     statistics:
       docker0:
         name: docker0
-        rx: "526684"
+        rx: "559577"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4950124e+09
+        sampleTime: 1.4976115e+09
         speed: "1000"
         state: up
-        tx: "970817"
+        tx: "1003732"
         txDropped: "0"
         txErrors: "0"
       eth0:
         name: eth0
-        rx: "695630235"
+        rx: "710268436"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4950124e+09
+        sampleTime: 1.4976115e+09
         speed: "100"
         state: up
-        tx: "3481879"
+        tx: "2755631"
         txDropped: "0"
         txErrors: "0"
       eth1:
         name: eth1
-        rx: "574357"
+        rx: "444984"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4950124e+09
+        sampleTime: 1.4976115e+09
         speed: "100"
         state: up
-        tx: "1831419"
+        tx: "1263107"
         txDropped: "0"
         txErrors: "0"
       lo:
         name: lo
-        rx: "48252319"
+        rx: "47797763"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4950124e+09
+        sampleTime: 1.4976115e+09
         speed: "1000"
         state: up
-        tx: "48252319"
+        tx: "47797763"
         txDropped: "0"
         txErrors: "0"
-      veth96a2144:
-        name: veth96a2144
-        rx: "54558"
+      veth5250a08:
+        name: veth5250a08
+        rx: "84438"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4950124e+09
+        sampleTime: 1.4976115e+09
         speed: "1000"
         state: up
-        tx: "51532"
-        txDropped: "0"
-        txErrors: "0"
-      virbr0:
-        name: virbr0
-        rx: "0"
-        rxDropped: "0"
-        rxErrors: "0"
-        sampleTime: 1.4950124e+09
-        speed: "1000"
-        state: down
-        tx: "0"
-        txDropped: "0"
-        txErrors: "0"
-      virbr0-nic:
-        name: virbr0-nic
-        rx: "0"
-        rxDropped: "0"
-        rxErrors: "0"
-        sampleTime: 1.4950124e+09
-        speed: "1000"
-        state: down
-        tx: "0"
+        tx: "78706"
         txDropped: "0"
         txErrors: "0"
 kind: List

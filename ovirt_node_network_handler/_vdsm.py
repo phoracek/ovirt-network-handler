@@ -21,7 +21,10 @@ import six
 
 from vdsm.network import api as netapi
 from vdsm.network import canonicalize
+from vdsm.network import netswitch
+from vdsm.network.kernelconfig import KernelConfig
 from vdsm.network.netconfpersistence import BaseConfig, RunningConfig
+from vdsm.network.netinfo.cache import NetInfo
 from vdsm.network.nm import networkmanager
 from vdsm.host import stats
 from vdsm.virt import sampling
@@ -104,6 +107,7 @@ def _canonicalize_bondings(bondings):
 
 
 def get_info(initial_ifaces_sample):
+    kernel_config = _get_kernel_config()
     capabilities = netapi.network_caps()
     new_ifaces_sample = InterfacesSample()
     statistics = stats._get_interfaces_stats(
@@ -111,8 +115,19 @@ def get_info(initial_ifaces_sample):
         new_ifaces_sample
     )['network']
     return {
+        'kernel_config': kernel_config,
         'capabilities': capabilities,
         'statistics': statistics
+    }
+
+
+def _get_kernel_config():
+    kernel_config = KernelConfig(NetInfo(netswitch.configurator.netinfo()))
+    kernel_networks = kernel_config.networks
+    kernel_bondings = kernel_config.bonds
+    return {
+        'networks': kernel_networks,
+        'bondings': kernel_bondings
     }
 
 
