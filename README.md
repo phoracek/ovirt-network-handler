@@ -5,7 +5,7 @@
 oVirt host networking controlled by OpenShift API.
 
 
-## Demo
+## OpenShift Demo
 
 With following steps you can install test environment with OpenShift cluster,
 install network handler there and use to to configure and gather info about

@@ -17,4 +17,4 @@ CMD \
   modprobe bonding; \
   modprobe 8021q; \
   vdsm-tool dump-bonding-options; \
-  ovirt-node-network-handler
+  ovirt-node-network-start-handler
