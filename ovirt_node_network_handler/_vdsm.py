@@ -65,6 +65,7 @@ def setup(networks, bondings, ping_fn):
         )
 
     logging.info('Setup is now complete.')
+    return diff
 
 
 def _run_ping_check_thread(ping_fn, timeout):

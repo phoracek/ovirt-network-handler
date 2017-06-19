@@ -5,6 +5,10 @@
 oVirt host networking controlled by OpenShift API.
 
 
+
+docker run --privileged -v /var/lib/vdsm:/var/lib/vdsm -v /var/run/dbus:/var/run/dbus -v /etc/sysconfig/network-scripts:/etc/sysconfig/network-scripts -v /lib/modules:/lib/modules -ti phoracek/ovirt-node-network-handler:devel bash
+
+
 ## OpenShift Demo
 
 With following steps you can install test environment with OpenShift cluster,
