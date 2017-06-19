@@ -13,8 +13,4 @@ RUN \
   cd ovirt-node-network-handler; \
   python setup.py install
 
-CMD \
-  modprobe bonding; \
-  modprobe 8021q; \
-  vdsm-tool dump-bonding-options; \
-  ovirt-node-network-start-handler
+CMD ovirt-node-network-start-handler

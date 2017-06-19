@@ -19,7 +19,7 @@ import threading
 import time
 import traceback
 
-from . import _cluster, _vdsm
+from . import _cluster, _system, _vdsm
 
 try:
     import Queue as queue
@@ -148,6 +148,9 @@ class Handler(object):
 def main():
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s %(levelname)s:%(message)s')
+    logging.info('Preparing system for vdsm usage.')
+    _system.prepare_system()
+
     logging.info('Starting vdsm-net-handler.')
 
     while True:
