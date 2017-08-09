@@ -1,3 +1,4 @@
+# TODO update with info changes
 # oVirt Node Network Handler
 
 [![Build Status](https://travis-ci.org/phoracek/ovirt-node-network-handler.svg?branch=master)](https://travis-ci.org/phoracek/ovirt-node-network-handler)
@@ -73,190 +74,97 @@ oc apply -f https://raw.githubusercontent.com/phoracek/ovirt-node-network-handle
 Read capabilities and statistics from all nodes.
 
 ```shell
-oc get ovirtnodenetworks -o yaml
+oc get ovirtnodenetworkinfos -o yaml
 ```
 
 ```yaml
 apiVersion: v1
 items:
 - apiVersion: ovirt.org/v1alpha1
-  kind: OvirtNodeNetwork
+  kind: OvirtNodeNetworkInfo
   metadata:
-    creationTimestamp: 2017-06-16T11:07:30Z
+    creationTimestamp: 2017-08-10T09:46:53Z
     name: minishift
     namespace: ovirt
-    resourceVersion: "1151"
-    selfLink: /apis/ovirt.org/v1alpha1/namespaces/ovirt/ovirtnodenetworks/minishift
-    uid: fd9a490b-5283-11e7-98d1-525400e42a82
-  spec: {}
+    resourceVersion: "12261"
+    selfLink: /apis/ovirt.org/v1alpha1/namespaces/ovirt/ovirtnodenetworkinfos/minishift
+    uid: d7079b91-7db0-11e7-8049-52540095ba2d
   state:
     capabilities:
-      bondings: {}
-      bridges:
-        docker0:
-          addr: 172.17.0.1
-          dhcpv4: false
-          dhcpv6: false
-          gateway: ""
-          ipv4addrs:
-          - 172.17.0.1/16
-          ipv4defaultroute: false
-          ipv6addrs: []
-          ipv6autoconf: true
-          ipv6gateway: '::'
-          mtu: "1500"
-          netmask: 255.255.0.0
-          opts:
-            ageing_time: "30000"
-            bridge_id: 8000.0242a8153d32
-            default_pvid: "1"
-            forward_delay: "1500"
-            gc_timer: "9393"
-            group_addr: 1:80:c2:0:0:0
-            group_fwd_mask: "0x0"
-            hash_elasticity: "4"
-            hash_max: "512"
-            hello_time: "200"
-            hello_timer: "90"
-            max_age: "2000"
-            multicast_last_member_count: "2"
-            multicast_last_member_interval: "100"
-            multicast_membership_interval: "26000"
-            multicast_querier: "0"
-            multicast_querier_interval: "25500"
-            multicast_query_interval: "12500"
-            multicast_query_response_interval: "1000"
-            multicast_router: "1"
-            multicast_snooping: "1"
-            multicast_startup_query_count: "2"
-            multicast_startup_query_interval: "3125"
-            nf_call_arptables: "0"
-            nf_call_ip6tables: "0"
-            nf_call_iptables: "0"
-            priority: "32768"
-            root_id: 8000.0242a8153d32
-            root_path_cost: "0"
-            root_port: "0"
-            stp_state: "0"
-            tcn_timer: "0"
-            topology_change: "0"
-            topology_change_detected: "0"
-            topology_change_timer: "0"
-            vlan_filtering: "0"
-          ports:
-          - veth5250a08
-          stp: "off"
-      nameservers:
-      - 192.168.122.1
-      - 192.168.42.1
-      networks: {}
-      nics:
-        eth0:
-          addr: 192.168.122.81
-          dhcpv4: true
-          dhcpv6: false
-          gateway: 192.168.122.1
-          hwaddr: 52:54:00:e4:2a:82
-          ipv4addrs:
-          - 192.168.122.81/24
-          ipv4defaultroute: true
-          ipv6addrs: []
-          ipv6autoconf: true
-          ipv6gateway: '::'
-          mtu: "1500"
-          netmask: 255.255.255.0
-          speed: 100
-        eth1:
-          addr: 192.168.42.212
-          dhcpv4: true
-          dhcpv6: false
-          gateway: ""
-          hwaddr: 52:54:00:2d:2b:d7
-          ipv4addrs:
-          - 192.168.42.212/24
-          ipv4defaultroute: false
-          ipv6addrs: []
-          ipv6autoconf: true
-          ipv6gateway: '::'
-          mtu: "1500"
-          netmask: 255.255.255.0
-          speed: 100
-      supportsIPv6: true
-      vlans: {}
-    infoStatus:
-      Success:
-        message: ""
-        reason: ""
-    kernel_config:
-      bondings: {}
-      networks: {}
-    setupStatus:
-      Success:
-        message: ""
-        reason: ""
+      bondings:
+        bond1:
+          active_slave: ""
+          mtu: 1500
+          nameservers: []
+          stp: false
+          switch: legacy
     statistics:
       docker0:
         name: docker0
-        rx: "541601"
+        rx: "4823839"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4976113e+09
+        sampleTime: 1.5023644e+09
         speed: "1000"
         state: up
-        tx: "984412"
+        tx: "5589738"
         txDropped: "0"
         txErrors: "0"
       eth0:
         name: eth0
-        rx: "710267176"
+        rx: "2288266988"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4976113e+09
+        sampleTime: 1.5023644e+09
         speed: "100"
         state: up
-        tx: "2754155"
+        tx: "10124559"
         txDropped: "0"
         txErrors: "0"
       eth1:
         name: eth1
-        rx: "418556"
+        rx: "864551"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4976113e+09
+        sampleTime: 1.5023644e+09
         speed: "100"
         state: up
-        tx: "1195523"
+        tx: "2586700"
         txDropped: "0"
         txErrors: "0"
       lo:
         name: lo
-        rx: "44748126"
+        rx: "474081703"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4976113e+09
+        sampleTime: 1.5023644e+09
         speed: "1000"
         state: up
-        tx: "44748126"
+        tx: "474081703"
         txDropped: "0"
         txErrors: "0"
-      veth5250a08:
-        name: veth5250a08
-        rx: "63522"
+      vethd0bd98e:
+        name: vethd0bd98e
+        rx: "5054022"
         rxDropped: "0"
         rxErrors: "0"
-        sampleTime: 1.4976113e+09
+        sampleTime: 1.5023644e+09
         speed: "1000"
         state: up
-        tx: "59386"
+        tx: "4672406"
         txDropped: "0"
         txErrors: "0"
+    status:
+      Success:
+        message: ""
+        reason: ""
 kind: List
 metadata: {}
 resourceVersion: ""
 selfLink: ""
 ```
 
-### Add a network
+### Configure networks
 
 Create a bonding on top of node's default interface and then setup a bridge
 on it. **TODO** research why is `oc patch` not working.
@@ -266,28 +174,50 @@ vim node_network.yml
 ```
 
 ```yaml
-apiVersion: 'ovirt.org/v1alpha1'
-kind: OvirtNodeNetwork
+apiVersion: ovirt.org/v1alpha1
+kind: OvirtNodeNetworkAttachment
 metadata:
+  creationTimestamp: 2017-08-10T11:19:27Z
   name: minishift
+  namespace: ovirt
+  resourceVersion: "12232"
+  selfLink: /apis/ovirt.org/v1alpha1/namespaces/ovirt/ovirtnodenetworkattachments/minishift
+  uid: c590abf1-7dbd-11e7-8049-52540095ba2d
 spec:
-  networks:
-    net1:
-      bridged: true
-      bonding: bond1
-      bootproto: dhcp
-      defaultRoute: true
   bondings:
     bond1:
-      options: 'mode=4 miimon=100'
       nics:
+      - eth1
+      options: mode=4 miimon=100
+  networks:
+    net1:
+      bonding: bond1
+      bootproto: dhcp
+      bridged: true
+      defaultRoute: true
+state:
+  configured:
+    bondings:
+      bond1:
+        nics:
         - eth1
+        options: mode=4 miimon=100
+    networks:
+      net1:
+        bonding: bond1
+        bootproto: dhcp
+        bridged: true
+        defaultRoute: true
+  status:
+    Success:
+      message: ""
+      reason: ""
 ```
 
 
 ```shell
-oc replace ovirtnodenetwork minishift -f node_network.yml
-oc get ovirtnodenetworks -o yaml
+oc replace ovirtnodenetworkattachment minishift -f node_network.yml
+oc get ovirtnodenetworkattachments -o yaml
 ```
 
 ```yaml
