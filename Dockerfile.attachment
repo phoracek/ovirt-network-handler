@@ -13,4 +13,4 @@ RUN \
   cd ovirt-node-network-handler; \
   python setup.py install
 
-CMD ovirt-node-network-start-handler
+CMD ovirt-node-network-attachment-start-handler

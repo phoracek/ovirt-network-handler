@@ -88,6 +88,7 @@ def _check_ping(ping_fn, timeout):
         logging.debug('Running ping function.')
         if ping_fn():
             logging.debug('Successfully pinged, logging.')
+            # TODO: use vdsm.network.api.confirm_connectivity
             with open(_CLIENT_LOG, 'w') as client_log_file:
                 client_log_file.write('I have seen my master.\n')
         time.sleep(10)

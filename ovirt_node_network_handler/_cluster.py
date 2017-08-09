@@ -21,7 +21,9 @@ _SERVICE_SECRETS = '/var/run/secrets/kubernetes.io/serviceaccount'
 _TOKEN_FILE = os.path.join(_SERVICE_SECRETS, 'token')
 _CERT_FILE = os.path.join(_SERVICE_SECRETS, 'service-ca.crt')
 
-_NETWORK_RESOURCE = 'apis/ovirt.org/v1alpha1/namespaces/{}/ovirtnodenetworks'
+_RESOURCE_PREFIX = 'apis/ovirt.org/v1alpha1/namespaces/{}/'
+_NETWORK_ATTACHMENT_RESOURCE = _RESOURCE_PREFIX + 'ovirtnodenetworkattachments'
+_NETWORK_INFO_RESOURCE = _RESOURCE_PREFIX + 'ovirtnodenetworkinfos'
 
 
 class Cluster(object):
@@ -80,14 +82,14 @@ def _get_token():
         return token_file.read()
 
 
-class NodeNetworkCluster(Cluster):
+class NodeNetworkAttachmentCluster(Cluster):
 
     def __init__(self, node_name, project_name):
-        super(NodeNetworkCluster, self).__init__()
+        super(NodeNetworkAttachmentCluster, self).__init__()
         self._node_name = node_name
-        self._resource = _NETWORK_RESOURCE.format(project_name)
+        self._resource = _NETWORK_ATTACHMENT_RESOURCE.format(project_name)
 
-    def get_network(self):
+    def get_network_attachment(self):
         try:
             return self.get(self._resource, self._node_name)
         except requests.HTTPError as http_error:
@@ -95,15 +97,39 @@ class NodeNetworkCluster(Cluster):
                 return None
             raise
 
-    def watch_network(self):
+    def watch_network_attachment(self):
         for event in self.watch(self._resource):
             if event['object']['metadata']['name'] == self._node_name:
                 yield event
 
-    def set_network(self, network):
-        name = network['metadata']['name']
-        network['metadata'] = {'name': name}
-        if self.get_network() is None:
-            return self.post(self._resource, network)
+    def set_network_attachment(self, network_attachment):
+        name = network_attachment['metadata']['name']
+        network_attachment['metadata'] = {'name': name}
+        if self.get_network_attachment() is None:
+            return self.post(self._resource, network_attachment)
         else:
-            return self.put(self._resource, name, network)
+            return self.put(self._resource, name, network_attachment)
+
+
+class NodeNetworkInfoCluster(Cluster):
+
+    def __init__(self, node_name, project_name):
+        super(NodeNetworkInfoCluster, self).__init__()
+        self._node_name = node_name
+        self._resource = _NETWORK_INFO_RESOURCE.format(project_name)
+
+    def set_network_info(self, network_info):
+        name = network_info['metadata']['name']
+        network_info['metadata'] = {'name': name}
+        if self._get_network_info() is None:
+            return self.post(self._resource, network_info)
+        else:
+            return self.put(self._resource, name, network_info)
+
+    def _get_network_info(self):
+        try:
+            return self.get(self._resource, self._node_name)
+        except requests.HTTPError as http_error:
+            if http_error.response.status_code == 404:
+                return None
+            raise
