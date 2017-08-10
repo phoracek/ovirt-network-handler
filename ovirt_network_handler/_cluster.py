@@ -22,8 +22,8 @@ _TOKEN_FILE = os.path.join(_SERVICE_SECRETS, 'token')
 _CERT_FILE = os.path.join(_SERVICE_SECRETS, 'service-ca.crt')
 
 _RESOURCE_PREFIX = 'apis/ovirt.org/v1alpha1/namespaces/{}/'
-_NETWORK_ATTACHMENT_RESOURCE = _RESOURCE_PREFIX + 'ovirtnodenetworkattachments'
-_NETWORK_INFO_RESOURCE = _RESOURCE_PREFIX + 'ovirtnodenetworkinfos'
+_NETWORK_ATTACHMENT_RESOURCE = _RESOURCE_PREFIX + 'ovirtnetworkattachments'
+_NETWORK_INFO_RESOURCE = _RESOURCE_PREFIX + 'ovirtnetworkinfos'
 
 
 class Cluster(object):

@@ -57,7 +57,7 @@ def main():
     logging.info('Preparing system for vdsm usage.')
     _system.prepare_system()
 
-    logging.info('Starting ovirt-node-network-info-handler.')
+    logging.info('Starting ovirt-network-info-handler.')
 
     while True:
         handler = InfoHandler()

@@ -5,16 +5,16 @@ items:
 - apiVersion: extensions/v1beta1
   kind: ThirdPartyResource
   metadata:
-    name: ovirt-node-network-attachment.ovirt.org
-  description: "oVirt node network configuraton."
+    name: ovirt-network-attachment.ovirt.org
+  description: "oVirt network configuraton."
   versions:
   - name: v1alpha1
 
 - apiVersion: extensions/v1beta1
   kind: ThirdPartyResource
   metadata:
-    name: ovirt-node-network-info.ovirt.org
-  description: "oVirt node network info."
+    name: ovirt-network-info.ovirt.org
+  description: "oVirt network info."
   versions:
   - name: v1alpha1
 
@@ -22,13 +22,13 @@ items:
   kind: DaemonSet
   metadata:
     labels:
-      name: node-network-attachment-handler
-    name: node-network-attachment-handler
+      name: network-attachment-handler
+    name: network-attachment-handler
   spec:
     template:
       metadata:
         labels:
-          name: node-network-attachment-handler
+          name: network-attachment-handler
       spec:
         serviceAccountName: privilegeduser
         hostNetwork: true
@@ -37,8 +37,8 @@ items:
         securityContext:
           privileged: true
         containers:
-          - name: node-network-attachment-handler
-            image: docker.io/phoracek/ovirt-node-network-attachment-handler:latest
+          - name: network-attachment-handler
+            image: docker.io/phoracek/ovirt-network-attachment-handler:latest
             imagePullPolicy: IfNotPresent
             securityContext:
               privileged: true
@@ -51,8 +51,8 @@ items:
                 name: etc-sysconfig-networkscripts
               - mountPath: /lib/modules
                 name: lib-modules
-          - name: node-network-info-handler
-            image: docker.io/phoracek/ovirt-node-network-info-handler:latest
+          - name: network-info-handler
+            image: docker.io/phoracek/ovirt-network-info-handler:latest
             imagePullPolicy: IfNotPresent
             securityContext:
               privileged: true

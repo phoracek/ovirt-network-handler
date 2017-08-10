@@ -1,6 +1,6 @@
-# oVirt Node Network Handler
+# oVirt Network Handler
 
-[![Build Status](https://travis-ci.org/phoracek/ovirt-node-network-handler.svg?branch=master)](https://travis-ci.org/phoracek/ovirt-node-network-handler)
+[![Build Status](https://travis-ci.org/phoracek/ovirt-network-handler.svg?branch=master)](https://travis-ci.org/phoracek/ovirt-network-handler)
 
 oVirt host networking controlled by OpenShift API.
 
@@ -53,7 +53,7 @@ oc new-project $PROJECT --description="oVirt" --display-name="oVirt"
 ```
 
 Allows host advanced privileges and cluster administration inside the handler
-pod. **TODO** limit cluster administration to OvirtNodeNetwork objects.
+pod. **TODO** limit cluster administration to OvirtNetwork* objects.
 
 ```shell
 oc create serviceaccount privilegeduser
@@ -64,7 +64,7 @@ oc policy add-role-to-user cluster-admin system:serviceaccount:ovirt:privilegedu
 Install network handler.
 
 ```shell
-oc apply -f https://raw.githubusercontent.com/phoracek/ovirt-node-network-handler/master/manifests/add-on.yml
+oc apply -f https://raw.githubusercontent.com/phoracek/ovirt-network-handler/master/manifests/add-on.yml
 ```
 
 
@@ -73,20 +73,20 @@ oc apply -f https://raw.githubusercontent.com/phoracek/ovirt-node-network-handle
 Read capabilities and statistics from all nodes.
 
 ```shell
-oc get ovirtnodenetworkinfos -o yaml
+oc get ovirtnetworkinfos -o yaml
 ```
 
 ```yaml
 apiVersion: v1
 items:
 - apiVersion: ovirt.org/v1alpha1
-  kind: OvirtNodeNetworkInfo
+  kind: OvirtNetworkInfo
   metadata:
     creationTimestamp: 2017-08-10T12:37:44Z
     name: minishift
     namespace: ovirt
     resourceVersion: "1598"
-    selfLink: /apis/ovirt.org/v1alpha1/namespaces/ovirt/ovirtnodenetworkinfos/minishift
+    selfLink: /apis/ovirt.org/v1alpha1/namespaces/ovirt/ovirtnetworkinfos/minishift
     uid: b4fa636c-7dc8-11e7-a199-525400ee8827
   state:
     capabilities:
@@ -257,12 +257,12 @@ Create a bonding on top of node's default interface and then setup a bridge
 on it. **TODO** research why is `oc patch` not working.
 
 ```shell
-vim node_network.yml
+vim network_attachment.yml
 ```
 
 ```yaml
 apiVersion: 'ovirt.org/v1alpha1'
-kind: OvirtNodeNetworkAttachment
+kind: OvirtNetworkAttachment
 metadata:
   name: minishift
 spec:
@@ -281,21 +281,21 @@ spec:
 
 
 ```shell
-oc create -f node_network.yml
-oc get ovirtnodenetworkattachments -o yaml
+oc create -f network_attachment.yml
+oc get ovirtnetworkattachments -o yaml
 ```
 
 ```yaml
 apiVersion: v1
 items:
 - apiVersion: ovirt.org/v1alpha1
-  kind: OvirtNodeNetworkAttachment
+  kind: OvirtNetworkAttachment
   metadata:
     creationTimestamp: 2017-08-10T12:39:47Z
     name: minishift
     namespace: ovirt
     resourceVersion: "1622"
-    selfLink: /apis/ovirt.org/v1alpha1/namespaces/ovirt/ovirtnodenetworkattachments/minishift
+    selfLink: /apis/ovirt.org/v1alpha1/namespaces/ovirt/ovirtnetworkattachments/minishift
     uid: feb6acaf-7dc8-11e7-a199-525400ee8827
   spec:
     bondings:

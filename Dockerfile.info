@@ -8,9 +8,9 @@ RUN \
 ENV SYSTEMD_IGNORE_CHROOT=yes
 
 RUN yum install -y git python-setuptools python-pbr
-COPY ./ ovirt-node-network-handler/
+COPY ./ ovirt-network-handler/
 RUN \
-  cd ovirt-node-network-handler; \
+  cd ovirt-network-handler; \
   python setup.py install
 
-CMD ovirt-node-network-info-start-handler
+CMD ovirt-network-info-start-handler

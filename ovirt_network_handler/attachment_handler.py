@@ -105,7 +105,7 @@ def main():
     logging.info('Preparing system for vdsm usage.')
     _system.prepare_system()
 
-    logging.info('Starting ovirt-node-network-attachment-handler.')
+    logging.info('Starting ovirt-network-attachment-handler.')
 
     while True:
         handler = AttachmentHandler()
