@@ -21,10 +21,7 @@ import six
 
 from vdsm.network import api as netapi
 from vdsm.network import canonicalize
-from vdsm.network import netswitch
-from vdsm.network.kernelconfig import KernelConfig
 from vdsm.network.netconfpersistence import BaseConfig, RunningConfig
-from vdsm.network.netinfo.cache import NetInfo
 from vdsm.network.nm import networkmanager
 from vdsm.host import stats
 from vdsm.virt import sampling
@@ -47,6 +44,7 @@ def setup(networks, bondings, ping_fn):
                  networks, bondings)
     canonicalize.canonicalize_networks(networks)
     canonicalize.canonicalize_bondings(bondings)
+    _southbound_to_nic_or_bond(networks, bondings)
     _canonicalize_bondings(bondings)
     desired = BaseConfig(networks, bondings)
     diff = desired.diffFrom(RunningConfig())
@@ -98,6 +96,17 @@ def _time():
     return os.times()[4]
 
 
+def _southbound_to_nic_or_bond(networks, bondings):
+    for attrs in six.viewvalues(networks):
+        southbound = attrs.pop('southbound', None)
+        if not southbound:
+            continue
+        if southbound in bondings:
+            attrs['bonding'] = southbound
+        else:
+            attrs['nic'] = southbound
+
+
 # TODO: remove when vdsm bondings canonicalization adds mode
 def _canonicalize_bondings(bondings):
     for attrs in six.itervalues(bondings):
@@ -108,7 +117,6 @@ def _canonicalize_bondings(bondings):
 
 
 def get_info(initial_ifaces_sample):
-    kernel_config = _get_kernel_config()
     capabilities = netapi.network_caps()
     new_ifaces_sample = InterfacesSample()
     statistics = stats._get_interfaces_stats(
@@ -116,19 +124,8 @@ def get_info(initial_ifaces_sample):
         new_ifaces_sample
     )['network']
     return {
-        'kernel_config': kernel_config,
         'capabilities': capabilities,
         'statistics': statistics
-    }
-
-
-def _get_kernel_config():
-    kernel_config = KernelConfig(NetInfo(netswitch.configurator.netinfo()))
-    kernel_networks = kernel_config.networks
-    kernel_bondings = kernel_config.bonds
-    return {
-        'networks': kernel_networks,
-        'bondings': kernel_bondings
     }
 
 

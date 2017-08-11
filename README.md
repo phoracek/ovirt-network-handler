@@ -269,7 +269,7 @@ spec:
   networks:
     net1:
       bridged: true
-      bonding: bond1
+      southbound: bond1
       bootproto: dhcp
       defaultRoute: true
   bondings:
@@ -305,7 +305,7 @@ items:
         options: mode=4 miimon=100
     networks:
       net1:
-        bonding: bond1
+        southbound: bond1
         bootproto: dhcp
         bridged: true
         defaultRoute: true
@@ -318,7 +318,7 @@ items:
           options: mode=4 miimon=100
       networks:
         net1:
-          bonding: bond1
+          southbound: bond1
           bootproto: dhcp
           bridged: true
           defaultRoute: true
